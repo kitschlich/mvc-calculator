@@ -1,0 +1,90 @@
+/*------------
+FONTS
+-------------*/
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600);
+@import url(https://fonts.googleapis.com/css?family=Pacifico);
+
+/*------------
+COLORS
+-------------*/
+
+@light: #ddd;
+@dark: #353535;
+
+/*------------
+STYLES
+-------------*/
+
+@border-margin: 5px;
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    color: @dark;
+    background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/309280/symphony.png')
+}
+
+.subtitle {
+    font-size: 18px;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 20px 0 15px 0;
+}
+
+.calculator {
+    width: 280px;
+    background-color: rgba(100, 100, 100, .6);
+    padding: 0 10px;
+    height: 436px;
+    margin: 100px auto;
+}
+
+.display {
+    width: 180px;
+    height: 40px;
+    margin: @border-margin;
+    background-color: #fff;
+    text-align: right;
+    float: left;
+    line-height: 32px;
+    padding: 10px;
+    font-size: 32px;
+    overflow: auto;
+    overflow-y: hidden;
+}
+
+button {
+    font: inherit;
+    background-color: inherit;
+    color: inherit;
+    border: none;
+}
+
+.btn-grid--item {
+    float: left;
+}
+
+.btn(@base-color; @accent-color) {
+    width: 60px;
+    height: 60px;
+    margin: @border-margin;
+    color: @accent-color;
+    background-color: @base-color;
+    border: 3px solid @base-color;
+    -webkit-transition: color .2s, background-color .2s;
+    transition: color .2s, background-color .2s;
+
+    &:hover {
+        color: @base-color;
+        background-color: @accent-color;
+    }
+}
+.btn-basic {
+    .btn(@light; @dark);
+}
+
+.btn-function {
+    .btn(@dark; @light);
+}
+
