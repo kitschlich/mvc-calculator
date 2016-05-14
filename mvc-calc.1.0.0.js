@@ -55,7 +55,7 @@
 	  
 	  mvcCalc.model = new Model();
 	  
-	  mvcCalc.view = new View(mvcCalc.controller, mvcCalc.model); 
+	  mvcCalc.view = new View(mvcCalc.model); 
 	  
 	  mvcCalc.controller = new Controller(mvcCalc.model, mvcCalc.view);
 	  
@@ -63,6 +63,9 @@
 	  mvcCalc.controller.init();
 	
 	});
+	
+	
+	// the view shouldn't be trying to talk to the controller!
 
 /***/ },
 /* 1 */
@@ -9931,11 +9934,6 @@
 /***/ function(module, exports) {
 
 	var Controller = function(model, view) {
-	  
-	  this.test = function(string) {
-	    model.display = string;
-	    console.log(model.display);
-	  }
 	
 	  this.validate = function(value) {
 	
@@ -9950,7 +9948,7 @@
 	    } else {
 	      this.updateOperator(value);
 	    }
-	    view.render.bind(view);
+	    view.render(model.display);
 	  };
 	  
 	  this.updateDigit = function(value) {
@@ -10038,6 +10036,7 @@
 	  };
 	  
 	  this.init = function() {
+	    view.onInput = this.validate.bind(this);
 	    view.init();
 	  };
 	};
@@ -10050,21 +10049,27 @@
 
 	var $ = __webpack_require__(1);
 	
-	var View = function(controller, model) {
+	var View = function() {
 	
+	  this.onInput = null;
+	  
 	  this.init = function() {
 	    this.$button = $('button');
 	
-	    this.$button.on('click', function(e) {
+	    this._onInput = function(e) {
 	      var buttonVal = e.target.value;
-	      controller.validate(buttonVal).bind(controller);
-	    });
+	      if (this.onInput) {
+	        this.onInput(buttonVal);
+	      }
+	    };
+	    
+	    this.$button.on('click', this._onInput.bind(this));
 	    this.render();
 	  };
 	  
-	  this.render = function() {
+	  this.render = function(displayVal) {
 	    this.$display = $('#display');
-	    this.$display.html(model.display);
+	    this.$display.html(displayVal || 0);
 	  };
 	};
 	
