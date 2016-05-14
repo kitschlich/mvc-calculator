@@ -9,7 +9,7 @@ $(document).ready(function() {
   
   mvcCalc.model = new Model();
   
-  mvcCalc.view = new View(mvcCalc.controller, mvcCalc.model); 
+  mvcCalc.view = new View(mvcCalc.model); 
   
   mvcCalc.controller = new Controller(mvcCalc.model, mvcCalc.view);
   
@@ -17,3 +17,6 @@ $(document).ready(function() {
   mvcCalc.controller.init();
 
 });
+
+
+// the view shouldn't be trying to talk to the controller!

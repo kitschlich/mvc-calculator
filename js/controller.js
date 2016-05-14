@@ -1,9 +1,4 @@
 var Controller = function(model, view) {
-  
-  this.test = function(string) {
-    model.display = string;
-    console.log(model.display);
-  }
 
   this.validate = function(value) {
 
@@ -18,7 +13,7 @@ var Controller = function(model, view) {
     } else {
       this.updateOperator(value);
     }
-    view.render.bind(view);
+    view.render(model.display);
   };
   
   this.updateDigit = function(value) {
@@ -106,6 +101,7 @@ var Controller = function(model, view) {
   };
   
   this.init = function() {
+    view.onInput = this.validate.bind(this);
     view.init();
   };
 };

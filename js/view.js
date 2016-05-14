@@ -1,20 +1,26 @@
 var $ = require('jquery');
 
-var View = function(controller, model) {
+var View = function() {
 
+  this.onInput = null;
+  
   this.init = function() {
     this.$button = $('button');
 
-    this.$button.on('click', function(e) {
+    this._onInput = function(e) {
       var buttonVal = e.target.value;
-      controller.validate(buttonVal).bind(controller);
-    });
+      if (this.onInput) {
+        this.onInput(buttonVal);
+      }
+    };
+    
+    this.$button.on('click', this._onInput.bind(this));
     this.render();
   };
   
-  this.render = function() {
+  this.render = function(displayVal) {
     this.$display = $('#display');
-    this.$display.html(model.display);
+    this.$display.html(displayVal || 0);
   };
 };
 
