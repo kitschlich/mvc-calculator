@@ -2,7 +2,7 @@ var $ = require('jquery');
 
 var View = function() {
 
-  this.onInput = null;
+  this.onInput = null; //set to controller.validate on controller init
   
   this.init = function() {
     this.$button = $('button');
